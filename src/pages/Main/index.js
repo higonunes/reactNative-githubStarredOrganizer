@@ -47,7 +47,10 @@ export default class Main extends Component {
 
     this.setState({ loading: true });
 
-    const response = await api.get(`/users/${newUser}`);
+    const response = await api.get(`/users/${newUser}`).catch(() => {
+      this.setState({ loading: false });
+    });
+
     const data = {
       name: response.data.name,
       login: response.data.login,
